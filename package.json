@@ -2,6 +2,7 @@
 	"name": "auto-reload",
 	"displayName": "Auto Reload",
 	"description": "Automatically reloads files in a regular interval",
+	"publisher": "sebastian-lay",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.53.0"
