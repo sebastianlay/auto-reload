@@ -3,7 +3,7 @@
 	"displayName": "Auto Reload",
 	"description": "Automatically reloads files in a regular interval",
 	"publisher": "sebastian-lay",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.53.0"
 	},
@@ -11,12 +11,12 @@
 	"icon": "icon.png",
 	"homepage": "https://github.com/sebastianlay/auto-reload",
 	"repository": {
-    "type": "git",
-    "url": "https://github.com/sebastianlay/auto-reload.git"
-  },
+		"type": "git",
+		"url": "https://github.com/sebastianlay/auto-reload.git"
+	},
 	"bugs": {
-    "url": "https://github.com/sebastianlay/auto-reload/issues"
-  },
+		"url": "https://github.com/sebastianlay/auto-reload/issues"
+	},
 	"activationEvents": [
 		"onStartupFinished"
 	],
@@ -27,7 +27,17 @@
 				"command": "auto-reload.toggle",
 				"title": "Auto Reload: Toggle"
 			}
-		]
+		],
+		"configuration": {
+			"title": "Auto Reload",
+			"properties": {
+				"auto-reload.interval": {
+					"type": "number",
+					"default": 200,
+					"description": "Specifies the polling interval in ms. A short polling interval will lead to a higher resource consumption."
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",

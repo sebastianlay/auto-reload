@@ -1,8 +1,12 @@
 # Auto Reload
 
-Auto Reload is an extension for [Visual Studio Code](https://github.com/microsoft/vscode) that automatically reloads open files when they are changed outside of the editor. This can be useful for following log files, especially in combination with the [Auto Scroll](https://github.com/PejmanNik/vscode-autoScroll) extension.
+Auto Reload is an extension for [Visual Studio Code](https://github.com/microsoft/vscode) that automatically monitors open files and reloads them when they are changed outside of the editor. This can be useful for watching and following log files, especially in combination with the [Auto Scroll](https://github.com/PejmanNik/vscode-autoScroll) extension.
 
 ## Release Notes
+
+### 0.0.2
+
+Made polling interval configurable via `auto-reload.interval`
 
 ### 0.0.1
 

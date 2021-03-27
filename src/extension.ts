@@ -4,31 +4,56 @@ import * as fs from 'fs';
 let statusBarItem: vscode.StatusBarItem;
 let watchedFiles: string[] = [];
 
-let enabledText = "$(check) Auto Reload";
-let disabledText = "$(x) Auto Reload";
+const enabledText = "$(check) Auto Reload";
+const disabledText = "$(x) Auto Reload";
+const defaultInterval = 200;
 
 /**
  * Runs on activation of the extension
  */
 export function activate(context: vscode.ExtensionContext) {
 
-	let disposable = vscode.commands.registerCommand('auto-reload.toggle', toggleStatus);
+	// register events
 	vscode.window.onDidChangeActiveTextEditor(updateStatusBarItem);
+	vscode.workspace.onDidChangeConfiguration(configurationChanged);
 
+	// register commands
+	let toggleCommand = vscode.commands.registerCommand('auto-reload.toggle', toggleStatus);
+	context.subscriptions.push(toggleCommand);
+
+	// register UI elements
 	statusBarItem = vscode.window.createStatusBarItem(
 		vscode.StatusBarAlignment.Right,
 		90
 	);
 	statusBarItem.command = "auto-reload.toggle";
 	updateStatusBarItem(vscode.window.activeTextEditor);
-
-	context.subscriptions.push(disposable);
 }
 
 /**
  * Runs on deactivation of the extension
  */
 export function deactivate() {}
+
+/**
+ * Reads the configuration and
+ * @returns the currently configured polling interval in ms
+ */
+function getConfiguredInterval() {
+	const config = vscode.workspace.getConfiguration("auto-reload");
+	return config.get<number>("interval") ?? defaultInterval;
+}
+
+/**
+ * Updates the active file watchers with the new configuration
+ */
+function configurationChanged() {
+	for (let file of watchedFiles){
+		fs.unwatchFile(file);
+	}
+
+	watchedFiles.length = 0;
+}
 
 /**
  * Enables or disables watching the file of the current editor
@@ -45,7 +70,8 @@ function toggleStatus() {
 	}
 	else if (fs.existsSync(currentFile))
 	{
-		fs.watchFile(currentFile, { interval: 200 }, () => {});
+		let interval = getConfiguredInterval();
+		fs.watchFile(currentFile, { interval: interval }, () => {});
 		watchedFiles.push(currentFile);
 	}
 
