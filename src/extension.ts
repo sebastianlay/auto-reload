@@ -3,6 +3,7 @@ import * as fs from 'fs';
 
 let statusBarItem: vscode.StatusBarItem;
 let watchedFiles: string[] = [];
+let channel: vscode.OutputChannel;
 
 const enabledText = "$(check) Auto Reload";
 const disabledText = "$(x) Auto Reload";
@@ -12,6 +13,9 @@ const defaultInterval = 200;
  * Runs on activation of the extension
  */
 export function activate(context: vscode.ExtensionContext) {
+	// create output channel
+	channel = vscode.window.createOutputChannel('Auto Reload');
+	channel.show(true);
 
 	// register events
 	vscode.window.onDidChangeActiveTextEditor(updateStatusBarItem);
@@ -48,6 +52,8 @@ function getConfiguredInterval() {
  * Updates the active file watchers with the new configuration
  */
 function configurationChanged() {
+	channel.appendLine("Configuration changed");
+
 	for (let file of watchedFiles){
 		fs.unwatchFile(file);
 	}
@@ -64,6 +70,8 @@ function toggleStatus() {
 	let currentFile = vscode.window.activeTextEditor.document.uri.fsPath;
 	if (watchedFiles.includes(currentFile))
 	{
+		channel.appendLine("Unwatch file: " + currentFile);
+
 		fs.unwatchFile(currentFile);
 		let index = watchedFiles.indexOf(currentFile);
 		watchedFiles.splice(index, 1);
@@ -71,6 +79,9 @@ function toggleStatus() {
 	else if (fs.existsSync(currentFile))
 	{
 		let interval = getConfiguredInterval();
+
+		channel.appendLine("Watch file: " + currentFile + " with interval: " + interval);
+
 		fs.watchFile(currentFile, { interval: interval }, () => {});
 		watchedFiles.push(currentFile);
 	}
