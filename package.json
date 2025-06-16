@@ -7,7 +7,9 @@
 	"engines": {
 		"vscode": "^1.53.0"
 	},
-	"categories": ["Other"],
+	"categories": [
+		"Other"
+	],
 	"icon": "icon.png",
 	"homepage": "https://github.com/sebastianlay/auto-reload",
 	"repository": {
@@ -55,7 +57,7 @@
 		"@typescript-eslint/parser": "^4.14.1",
 		"eslint": "^7.19.0",
 		"glob": "^7.1.6",
-		"mocha": "^8.2.1",
+		"mocha": "^11.6.0",
 		"typescript": "^4.1.3",
 		"vscode-test": "^1.5.0"
 	}
