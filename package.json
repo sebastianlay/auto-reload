@@ -3,7 +3,7 @@
 	"displayName": "Auto Reload",
 	"description": "Automatically reloads files in a regular interval",
 	"publisher": "sebastian-lay",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"engines": {
 		"vscode": "^1.53.0"
 	},

@@ -4,6 +4,10 @@ Auto Reload is an extension for [Visual Studio Code](https://github.com/microsof
 
 ## Release Notes
 
+### 0.0.3
+
+Improve reliability by explicitly refreshing the editor
+
 ### 0.0.2
 
 Made polling interval configurable via `auto-reload.interval`
