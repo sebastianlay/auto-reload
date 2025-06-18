@@ -82,7 +82,10 @@ function toggleStatus() {
 
 		channel.appendLine("Watch file: " + currentFile + " with interval: " + interval);
 
-		fs.watchFile(currentFile, { interval: interval }, () => vscode.commands.executeCommand('workbench.action.files.revert'));
+		fs.watchFile(currentFile, { interval: interval }, () => {
+			if (currentFile === vscode.window.activeTextEditor?.document.uri.fsPath)
+				vscode.commands.executeCommand('workbench.action.files.revert')
+		});
 		watchedFiles.push(currentFile);
 	}
 
