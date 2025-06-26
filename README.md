@@ -4,6 +4,10 @@ Auto Reload is an extension for [Visual Studio Code](https://github.com/microsof
 
 ## Release Notes
 
+### 0.0.5
+
+Fix an issue with opening the output view unnecessarily
+
 ### 0.0.4
 
 Fix an issue with reverting unrelated opened files
