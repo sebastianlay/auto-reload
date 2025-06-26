@@ -15,7 +15,6 @@ const defaultInterval = 200;
 export function activate(context: vscode.ExtensionContext) {
 	// create output channel
 	channel = vscode.window.createOutputChannel('Auto Reload');
-	channel.show(true);
 
 	// register events
 	vscode.window.onDidChangeActiveTextEditor(updateStatusBarItem);
